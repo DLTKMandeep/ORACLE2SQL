@@ -31,6 +31,7 @@ jobs:
         for file in scripts/oracle/*.sql; do
           if [ -f "$file" ]; then
             filename=$(basename "$file")
+            echo "Processing $filename..."
             python convert.py "$file" "scripts/sql/$filename"
           fi
         done
