@@ -5,7 +5,6 @@ from anthropic import Anthropic
 
 def convert_oracle_to_sql(oracle_script, api_key):
     """Convert Oracle script to SQL Server using Claude API"""
-    # Create Anthropic client with the correct initialization
     client = Anthropic(api_key=api_key)
 
     prompt = f"""
@@ -33,7 +32,16 @@ def convert_oracle_to_sql(oracle_script, api_key):
                 }
             ]
         )
-        return response.content
+        # Extract the content from the response
+        if isinstance(response.content, list):
+            # If content is a list, get the first text content
+            for content in response.content:
+                if content.type == 'text':
+                    return content.text
+            return None
+        else:
+            # If content is direct text
+            return response.content
     except Exception as e:
         print(f"Error during conversion: {str(e)}")
         return None
