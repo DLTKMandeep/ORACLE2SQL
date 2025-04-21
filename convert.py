@@ -29,7 +29,7 @@ def main():
         sys.exit(1)
     input_file = sys.argv[1]
     output_file = sys.argv[2]
-    api_key = os.getenv('CLAUDE_API_KEY')
+    api_key = os.getenv('ANTHROPIC_API_KEY')
     if not api_key:
         print("CLAUDE_API_KEY environment variable not set")
         sys.exit(1)
